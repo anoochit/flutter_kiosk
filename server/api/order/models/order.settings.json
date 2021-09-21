@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "name": "Order",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "order.order-item"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "order",
+        "cooking",
+        "done"
+      ],
+      "default": "order",
+      "required": true
+    },
+    "table": {
+      "type": "string",
+      "required": true,
+      "default": "kiosk"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "eatin",
+        "takeout"
+      ],
+      "required": true
+    }
+  }
+}

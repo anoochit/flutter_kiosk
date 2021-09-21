@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_order_item_order_items",
+  "info": {
+    "name": "Order item",
+    "icon": "apple-alt",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "food": {
+      "model": "food"
+    },
+    "qt": {
+      "type": "integer",
+      "default": 1,
+      "required": true
+    },
+    "price": {
+      "type": "decimal",
+      "required": true
+    }
+  }
+}
