@@ -295,6 +295,7 @@ type Order {
   status: ENUM_ORDER_STATUS!
   table: String!
   type: ENUM_ORDER_TYPE!
+  total: Float!
   published_at: DateTime
 }
 
@@ -307,6 +308,26 @@ type OrderConnection {
 type OrderAggregator {
   count: Int
   totalCount: Int
+  sum: OrderAggregatorSum
+  avg: OrderAggregatorAvg
+  min: OrderAggregatorMin
+  max: OrderAggregatorMax
+}
+
+type OrderAggregatorSum {
+  total: Float
+}
+
+type OrderAggregatorAvg {
+  total: Float
+}
+
+type OrderAggregatorMin {
+  total: Float
+}
+
+type OrderAggregatorMax {
+  total: Float
 }
 
 type OrderGroupBy {
@@ -316,6 +337,7 @@ type OrderGroupBy {
   status: [OrderConnectionStatus]
   table: [OrderConnectionTable]
   type: [OrderConnectionType]
+  total: [OrderConnectionTotal]
   published_at: [OrderConnectionPublished_at]
 }
 
@@ -349,6 +371,11 @@ type OrderConnectionType {
   connection: OrderConnection
 }
 
+type OrderConnectionTotal {
+  key: Float
+  connection: OrderConnection
+}
+
 type OrderConnectionPublished_at {
   key: DateTime
   connection: OrderConnection
@@ -359,6 +386,7 @@ input OrderInput {
   status: ENUM_ORDER_STATUS
   table: String
   type: ENUM_ORDER_TYPE!
+  total: Float!
   published_at: DateTime
   created_by: ID
   updated_by: ID
@@ -369,6 +397,7 @@ input editOrderInput {
   status: ENUM_ORDER_STATUS
   table: String
   type: ENUM_ORDER_TYPE
+  total: Float
   published_at: DateTime
   created_by: ID
   updated_by: ID
@@ -889,7 +918,7 @@ input editComponentOrderOrderItemInput {
   price: Float
 }
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Category | CategoryConnection | CategoryAggregator | CategoryGroupBy | CategoryConnectionId | CategoryConnectionCreated_at | CategoryConnectionUpdated_at | CategoryConnectionTitle | CategoryConnectionPublished_at | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | Food | FoodConnection | FoodAggregator | FoodAggregatorSum | FoodAggregatorAvg | FoodAggregatorMin | FoodAggregatorMax | FoodGroupBy | FoodConnectionId | FoodConnectionCreated_at | FoodConnectionUpdated_at | FoodConnectionTitle | FoodConnectionDescription | FoodConnectionPrice | FoodConnectionImage | FoodConnectionPublished_at | createFoodPayload | updateFoodPayload | deleteFoodPayload | Order | OrderConnection | OrderAggregator | OrderGroupBy | OrderConnectionId | OrderConnectionCreated_at | OrderConnectionUpdated_at | OrderConnectionStatus | OrderConnectionTable | OrderConnectionType | OrderConnectionPublished_at | createOrderPayload | updateOrderPayload | deleteOrderPayload | I18NLocale | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_at | UploadFileConnectionUpdated_at | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_metadata | deleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_at | UsersPermissionsUserConnectionUpdated_at | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | createUserPayload | updateUserPayload | deleteUserPayload | ComponentOrderOrderItem
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Category | CategoryConnection | CategoryAggregator | CategoryGroupBy | CategoryConnectionId | CategoryConnectionCreated_at | CategoryConnectionUpdated_at | CategoryConnectionTitle | CategoryConnectionPublished_at | createCategoryPayload | updateCategoryPayload | deleteCategoryPayload | Food | FoodConnection | FoodAggregator | FoodAggregatorSum | FoodAggregatorAvg | FoodAggregatorMin | FoodAggregatorMax | FoodGroupBy | FoodConnectionId | FoodConnectionCreated_at | FoodConnectionUpdated_at | FoodConnectionTitle | FoodConnectionDescription | FoodConnectionPrice | FoodConnectionImage | FoodConnectionPublished_at | createFoodPayload | updateFoodPayload | deleteFoodPayload | Order | OrderConnection | OrderAggregator | OrderAggregatorSum | OrderAggregatorAvg | OrderAggregatorMin | OrderAggregatorMax | OrderGroupBy | OrderConnectionId | OrderConnectionCreated_at | OrderConnectionUpdated_at | OrderConnectionStatus | OrderConnectionTable | OrderConnectionType | OrderConnectionTotal | OrderConnectionPublished_at | createOrderPayload | updateOrderPayload | deleteOrderPayload | I18NLocale | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_at | UploadFileConnectionUpdated_at | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_metadata | deleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_at | UsersPermissionsUserConnectionUpdated_at | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | createUserPayload | updateUserPayload | deleteUserPayload | ComponentOrderOrderItem
 
 input InputID {
   id: ID!

@@ -107,6 +107,8 @@ class _MenuOrderListState extends State<MenuOrderList> {
                             style: Theme.of(context).textTheme.headline4,
                           ),
                         ),
+
+                        // done button
                         InkWell(
                           child: Container(
                             width: constraints.maxWidth * 0.6,

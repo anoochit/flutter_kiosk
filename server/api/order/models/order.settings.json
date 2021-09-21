@@ -39,6 +39,10 @@
         "takeout"
       ],
       "required": true
+    },
+    "total": {
+      "type": "decimal",
+      "required": true
     }
   }
 }

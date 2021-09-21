@@ -57,6 +57,26 @@ class _OrderPageState extends State<OrderPage> {
             // List order
 
             // Total / Checkout Button
+            InkWell(
+              child: Container(
+                width: constraints.maxWidth * 0.6,
+                height: constraints.maxWidth * 0.6,
+                child: Center(
+                  child: Text(
+                    "Done",
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 255, 202, 64),
+                  borderRadius: BorderRadius.circular(24.0),
+                ),
+              ),
+              onTap: () {
+                // post order
+                //kioskController.testPostOrder(orderItems: kioskController.orderData, type: '${kioskController.orderType}');
+              },
+            ),
           ],
         ),
       ),

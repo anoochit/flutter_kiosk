@@ -519,7 +519,8 @@
           "id",
           "status",
           "table",
-          "type"
+          "type",
+          "total"
         ],
         "properties": {
           "id": {
@@ -609,6 +610,9 @@
               "takeout"
             ]
           },
+          "total": {
+            "type": "number"
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -619,7 +623,8 @@
         "required": [
           "status",
           "table",
-          "type"
+          "type",
+          "total"
         ],
         "properties": {
           "items": {
@@ -705,6 +710,9 @@
               "eatin",
               "takeout"
             ]
+          },
+          "total": {
+            "type": "number"
           },
           "published_at": {
             "type": "string",

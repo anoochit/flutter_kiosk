@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "09/19/2021 8:10:07 PM"
+    "x-generation-date": "09/21/2021 7:31:25 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -4057,7 +4057,8 @@
           "id",
           "status",
           "table",
-          "type"
+          "type",
+          "total"
         ],
         "properties": {
           "id": {
@@ -4147,6 +4148,9 @@
               "takeout"
             ]
           },
+          "total": {
+            "type": "number"
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -4157,7 +4161,8 @@
         "required": [
           "status",
           "table",
-          "type"
+          "type",
+          "total"
         ],
         "properties": {
           "items": {
@@ -4243,6 +4248,9 @@
               "eatin",
               "takeout"
             ]
+          },
+          "total": {
+            "type": "number"
           },
           "published_at": {
             "type": "string",
