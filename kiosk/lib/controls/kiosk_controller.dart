@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:kiosk/models/food_model.dart' as food;
 import 'package:kiosk/models/order_model.dart' as order;
 import 'package:kiosk/services/kiosk_service.dart';
@@ -10,6 +11,8 @@ class KioskController extends GetxController {
   RxList<Map> orderData = [{}].obs;
 
   RxString orderType = "eatin".obs;
+
+  final box = GetStorage();
 
   /*
   RxList<dynamic> favoriteFoods = [].obs;   
@@ -28,14 +31,35 @@ class KioskController extends GetxController {
   Future<List<food.Food>?> getFoodByCategory({required int id}) async {
     KioskService kioskService = KioskService();
 
-    // sent post request to strapi
-    Response<dynamic> response = await kioskService.getFoodByCategory(id: id);
-    if (response.isOk) {
-      var result = food.foodFromJson(response.bodyString.toString());
-      log('total item =  ${result.length}');
-      return result;
+    var cacheKey = "FoodCategory$id";
+
+    // check cache is exist
+    var cacheCategory = box.read(cacheKey);
+    if (cacheCategory == null) {
+      log("no cache");
+      // sent post request to strapi
+      Response<dynamic> response = await kioskService.getFoodByCategory(id: id);
+
+      if (response.isOk) {
+        // write cache
+        box.write(cacheKey, response.bodyString.toString());
+
+        // parse json
+        var result = food.foodFromJson(response.bodyString.toString());
+        log('total item =  ${result.length}');
+
+        return result;
+      } else {
+        return null;
+      }
     } else {
-      return null;
+      log("hit cache");
+
+      // parse json
+      var result = food.foodFromJson(cacheCategory);
+      log('total item =  ${result.length}');
+
+      return result;
     }
   }
 

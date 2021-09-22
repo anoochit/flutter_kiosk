@@ -52,7 +52,7 @@ class MenuItemWidget extends StatelessWidget {
                   title,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: Theme.of(context).textTheme.headline6!.fontSize! - 4,
+                    fontSize: Theme.of(context).textTheme.headline6!.fontSize! - 2,
                     fontWeight: FontWeight.w500,
                   ),
                   overflow: TextOverflow.ellipsis,
