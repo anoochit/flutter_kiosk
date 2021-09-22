@@ -5,7 +5,7 @@ A sample kiosk app inspired by [Cuberto's design](https://www.behance.net/galler
  1. Strapi for backend and Restful API
  2. Kiosk app
 
-# How to run Strapi Kiosk backend
+## How to run Strapi Kiosk backend
 
 Kiosk backend use Strapi as a Restful API server.
 
@@ -26,15 +26,15 @@ Run Strapi
 `yarn develop`
 
 
-# Todos
+## Todos
 
-## Mobile Kiosk
+Mobile Kiosk
 
  * Change item quantity
  * Edit quantity in menu page and order page
  * QR Payment
 
-## Strapi
+Strapi
 
  * Nginx reverse proxy and cache
  * Docker compose / charm file
