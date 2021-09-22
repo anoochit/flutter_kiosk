@@ -39,7 +39,7 @@ class MenuItemWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: SizedBox(
                     width: constraints.maxWidth * 0.8,
                     child: CachedNetworkImage(
@@ -52,10 +52,10 @@ class MenuItemWidget extends StatelessWidget {
                   title,
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: Theme.of(context).textTheme.headline6!.fontSize,
+                    fontSize: Theme.of(context).textTheme.headline6!.fontSize! - 4,
                     fontWeight: FontWeight.w500,
                   ),
-                  overflow: TextOverflow.fade,
+                  overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
               ],

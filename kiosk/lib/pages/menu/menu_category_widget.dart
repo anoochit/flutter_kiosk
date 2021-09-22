@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -8,6 +9,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:kiosk/const.dart';
 import 'package:kiosk/controls/kiosk_controller.dart';
+import 'package:kiosk/models/food_model.dart';
 import 'package:kiosk/pages/menu/menu_top_widget.dart';
 import 'package:kiosk/widgets/menuitem_widget.dart';
 
@@ -41,7 +43,7 @@ class _MenuCategoryWidgetState extends State<MenuCategoryWidget> {
               child: GridView.count(
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
-                crossAxisCount: (scWidth == maxWidth) ? 3 : 2,
+                crossAxisCount: 2,
                 children: listMenuItem
                     .map(
                       (item) => SizedBox(
@@ -67,6 +69,8 @@ class _MenuCategoryWidgetState extends State<MenuCategoryWidget> {
   }
 
   showProductByCategory({required BuildContext context, required int id, required String title}) {
+    KioskController kioskController = Get.find<KioskController>();
+
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -110,43 +114,50 @@ class _MenuCategoryWidgetState extends State<MenuCategoryWidget> {
                   style: Theme.of(context).textTheme.headline4,
                 ),
               ),
-              //  TODO: Show product in category from REST API
-              Expanded(
-                child: GridView.count(
-                  crossAxisSpacing: 1,
-                  mainAxisSpacing: 2,
-                  crossAxisCount: 3,
-                  children: <Widget>[
-                    MenuItemWidget(
-                      title: "Big Mac®",
-                      image: '$urlEndpoint/uploads/t_mcdonalds_Big_Mac_e63db56101.jpg',
-                      onTab: () {
-                        Get.back();
-                        // show product
-                        showProduct(context: context, id: 2, title: "Big Mac®", image: '$urlEndpoint/uploads/t_mcdonalds_Big_Mac_e63db56101.jpg', price: 5.25);
-                      },
-                    ),
-                    MenuItemWidget(
-                      title: "Burger",
-                      image: '$urlEndpoint/uploads/t_mcdonalds_Big_Mac_e63db56101.jpg',
-                      onTab: () {
-                        Get.back();
-                        // show product
-                        showProduct(context: context, id: 3, title: "Burger", image: '$urlEndpoint/uploads/t_mcdonalds_Big_Mac_e63db56101.jpg', price: 5.25);
-                      },
-                    ),
-                    MenuItemWidget(
-                      title: "Sandwitch",
-                      image: '$urlEndpoint/uploads/t_mcdonalds_Big_Mac_e63db56101.jpg',
-                      onTab: () {
-                        Get.back();
-                        // show product
-                        showProduct(context: context, id: 4, title: "Sandwitch", image: '$urlEndpoint/uploads/t_mcdonalds_Big_Mac_e63db56101.jpg', price: 5.25);
-                      },
-                    ),
-                  ],
-                ),
-              )
+              FutureBuilder(
+                future: kioskController.getFoodByCategory(id: id),
+                builder: (BuildContext context, AsyncSnapshot<List<Food>?> snapshot) {
+                  if (snapshot.hasError) {
+                    return const Text("Error!");
+                  }
+
+                  if (snapshot.hasData) {
+                    var docs = snapshot.data;
+                    return Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: GridView.count(
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
+                            crossAxisCount: 3,
+                            children: docs!.map((doc) {
+                              //log('${doc.image!.url}');
+                              return MenuItemWidget(
+                                title: '${doc.title}',
+                                image: '$urlEndpoint${doc.image!.url}',
+                                onTab: () {
+                                  Get.back();
+                                  // show product
+                                  showProduct(
+                                      context: context,
+                                      id: int.parse('${doc.id}'),
+                                      title: '${doc.title}',
+                                      image: '$urlEndpoint${doc.image!.url}',
+                                      price: double.parse(
+                                        '${doc.price}',
+                                      ));
+                                },
+                              );
+                            }).toList()),
+                      ),
+                    );
+                  }
+
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
             ],
           ),
         );
@@ -195,13 +206,58 @@ class _MenuCategoryWidgetState extends State<MenuCategoryWidget> {
                 ],
               ),
 
+              // product image
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 32.0),
+                child: SizedBox(child: CachedNetworkImage(imageUrl: image)),
+              ),
+
               // product title
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
                 child: Text(
                   title,
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
                 ),
+              ),
+
+              // product price
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: Text(
+                  '$price',
+                  style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold, color: kMacYellow),
+                ),
+              ),
+
+              // qt button
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.add),
+                    onPressed: () {
+                      // TODO : action button
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      padding: const EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(color: kMacGrey, borderRadius: BorderRadius.circular(3.0)),
+                      child: Text(
+                        "1",
+                        style: Theme.of(context).textTheme.headline5,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.remove),
+                    onPressed: () {
+                      // TODO : action button
+                    },
+                  )
+                ],
               ),
 
               // done button

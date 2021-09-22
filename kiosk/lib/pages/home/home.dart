@@ -25,12 +25,14 @@ class _HomePageState extends State<HomePage> {
   // @override
   // void dispose() {
   //   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+  //   SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight, DeviceOrientation.landscapeLeft, DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   //   super.dispose();
   // }
 
   @override
   initState() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     super.initState();
   }
 
@@ -89,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                         height: constraints.maxWidth / 3.5,
                         child: MenuItemWidget(
                           title: "Eat In",
-                          image: "$urlEndpoint/uploads/h_mcdonalds_2_Cheeseburger_Extra_Value_Meals_809c97f072.jpg",
+                          image: eatinIcon,
                           onTab: () {
                             // update order type and goto menu page
                             kioskController.orderType = RxString("eatin");

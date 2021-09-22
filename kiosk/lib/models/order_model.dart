@@ -3,7 +3,6 @@
 //
 //     final order = orderFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 Order orderFromJson(String str) => Order.fromJson(json.decode(str));
@@ -24,7 +23,7 @@ class Order {
   final String? status;
   final String? table;
   final String? type;
-  final int? total;
+  final double? total;
   final List<Item>? items;
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
@@ -32,7 +31,7 @@ class Order {
         status: json["status"] == null ? null : json["status"],
         table: json["table"] == null ? null : json["table"],
         type: json["type"] == null ? null : json["type"],
-        total: json["total"] == null ? null : json["total"],
+        total: json["total"] == null ? null : double.parse((json["total"]).toString()),
         items: json["items"] == null ? null : List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
       );
 
@@ -57,13 +56,13 @@ class Item {
   final int? id;
   final Food? food;
   final int? qt;
-  final int? price;
+  final double? price;
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
         id: json["id"] == null ? null : json["id"],
         food: json["food"] == null ? null : Food.fromJson(json["food"]),
         qt: json["qt"] == null ? null : json["qt"],
-        price: json["price"] == null ? null : json["price"],
+        price: json["price"] == null ? null : double.parse((json["price"]).toString()),
       );
 
   Map<String, dynamic> toJson() => {

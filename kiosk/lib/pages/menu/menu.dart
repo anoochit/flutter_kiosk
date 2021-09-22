@@ -32,6 +32,7 @@ class _MenuPageState extends State<MenuPage> {
   @override
   initState() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     super.initState();
   }
 

@@ -47,8 +47,8 @@ class _MenuOrderListState extends State<MenuOrderList> {
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Divider(
-                  indent: 8.0,
-                  endIndent: 8.0,
+                  indent: 16.0,
+                  endIndent: 16.0,
                   thickness: 2.0,
                 ),
               ),
@@ -75,7 +75,7 @@ class _MenuOrderListState extends State<MenuOrderList> {
                           children: [
                             CachedNetworkImage(width: constraints.maxWidth * 0.6, imageUrl: kioskController.orderData[index]["image"]),
                             Text('${kioskController.orderData[index]["title"]}'),
-                            Text('${kioskController.orderData[index]["qt"]}'),
+                            Text('X ${kioskController.orderData[index]["qt"]}'),
                           ],
                         );
                       },
@@ -96,14 +96,25 @@ class _MenuOrderListState extends State<MenuOrderList> {
                     }
                     return Column(
                       children: [
-                        Text(
-                          "Total",
-                          style: Theme.of(context).textTheme.headline6,
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Divider(
+                            indent: 16.0,
+                            endIndent: 16.0,
+                            thickness: 2.0,
+                          ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
                           child: Text(
-                            '${total}',
+                            "Total",
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          child: Text(
+                            '$total',
                             style: Theme.of(context).textTheme.headline4,
                           ),
                         ),
@@ -126,7 +137,7 @@ class _MenuOrderListState extends State<MenuOrderList> {
                           ),
                           onTap: () {
                             if (total > 0) {
-                              Get.to(() => const OrderPage());
+                              Get.to(() => OrderPage(total: total));
                             }
                           },
                         ),

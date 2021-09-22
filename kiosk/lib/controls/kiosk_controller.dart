@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:kiosk/models/food_model.dart' as food;
 import 'package:kiosk/models/order_model.dart' as order;
 import 'package:kiosk/services/kiosk_service.dart';
+import 'package:flutter_cache/flutter_cache.dart' as cache;
 
 class KioskController extends GetxController {
   RxList<Map> orderData = [{}].obs;
@@ -26,11 +27,12 @@ class KioskController extends GetxController {
 
   Future<List<food.Food>?> getFoodByCategory({required int id}) async {
     KioskService kioskService = KioskService();
+
     // sent post request to strapi
     Response<dynamic> response = await kioskService.getFoodByCategory(id: id);
     if (response.isOk) {
       var result = food.foodFromJson(response.bodyString.toString());
-      log('total in favorite =  ${result.length}');
+      log('total item =  ${result.length}');
       return result;
     } else {
       return null;
