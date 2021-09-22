@@ -5,6 +5,27 @@ A sample kiosk app inspired by [Cuberto's design](https://www.behance.net/galler
  1. Strapi for backend and Restful API
  2. Kiosk app
 
+# How to run Strapi Kiosk backend
+
+Kiosk backend use Strapi as a Restful API server.
+
+ * Username : `noreply@redlinesoft.net`
+ * Password : `Admin123`
+
+Plugins
+
+ * Swagger API document
+ * GraphQL
+
+Install dependency use `yarn`
+
+`yarn install`
+
+Run Strapi
+
+`yarn develop`
+
+
 # Todos
 
 ## Mobile Kiosk
