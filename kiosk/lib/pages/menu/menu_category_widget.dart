@@ -181,125 +181,127 @@ class _MenuCategoryWidgetState extends State<MenuCategoryWidget> {
         // TODO: Show product
         return FractionallySizedBox(
           heightFactor: 0.85,
-          child: Column(
-            children: [
-              // close button
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8.0),
-                    width: 100,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(16),
-                        bottomRight: Radius.circular(16),
-                      ),
-                    ),
-                    child: InkWell(
-                      child: const Icon(Icons.close, size: 32),
-                      onTap: () => Get.back(),
-                    ),
-                  ),
-                ],
-              ),
-
-              // product image
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 32.0),
-                child: SizedBox(child: CachedNetworkImage(imageUrl: image)),
-              ),
-
-              // product title
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: Text(
-                  title,
-                  style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold),
-                ),
-              ),
-
-              // product price
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: Text(
-                  '$price',
-                  style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold, color: kMacYellow),
-                ),
-              ),
-
-              // qt button
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.add),
-                    onPressed: () {
-                      // TODO : action button
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
+          child: LayoutBuilder(
+            builder: (context, constraints) => Column(
+              children: [
+                // close button
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
                       padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(color: kMacGrey, borderRadius: BorderRadius.circular(3.0)),
-                      child: Text(
-                        "1",
-                        style: Theme.of(context).textTheme.headline5,
+                      width: 100,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(16),
+                          bottomRight: Radius.circular(16),
+                        ),
+                      ),
+                      child: InkWell(
+                        child: const Icon(Icons.close, size: 32),
+                        onTap: () => Get.back(),
                       ),
                     ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.remove),
-                    onPressed: () {
-                      // TODO : action button
-                    },
-                  )
-                ],
-              ),
+                  ],
+                ),
 
-              // done button
-              InkWell(
-                child: Container(
-                  padding: const EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(color: kMacYellow, borderRadius: BorderRadius.circular(16.0)),
+                // product image
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 24.0),
+                  child: SizedBox(width: constraints.maxWidth * 0.7, child: CachedNetworkImage(imageUrl: image)),
+                ),
+
+                // product title
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
                   child: Text(
-                    "Done",
-                    style: Theme.of(context).textTheme.headline5,
+                    title,
+                    style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold),
                   ),
                 ),
-                onTap: () {
-                  //  TODO: add and update product qt
-                  var data = kioskController.orderData;
-                  log('add -> total items ${data.length}');
 
-                  if (data.isEmpty) {
-                    log('first add !');
-                    kioskController.addOrderItemQt(id: id, title: title, image: image, price: price, qt: 1);
-                  } else {
-                    // FIXME: check data exist
-                    bool found = false;
-                    for (var element in data) {
-                      if (element["id"] == id) {
-                        log('found!');
-                        element["qt"] = element["qt"] + 1;
-                        found = true;
-                        break;
+                // product price
+                Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: Text(
+                    '$price',
+                    style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold, color: kMacYellow),
+                  ),
+                ),
+
+                // qt button
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.add),
+                      onPressed: () {
+                        // TODO : action button
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        padding: const EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(color: kMacGrey, borderRadius: BorderRadius.circular(3.0)),
+                        child: Text(
+                          "1",
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.remove),
+                      onPressed: () {
+                        // TODO : action button
+                      },
+                    )
+                  ],
+                ),
+
+                // done button
+                InkWell(
+                  child: Container(
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(color: kMacYellow, borderRadius: BorderRadius.circular(16.0)),
+                    child: Text(
+                      "Done",
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                  ),
+                  onTap: () {
+                    //  TODO: add and update product qt
+                    var data = kioskController.orderData;
+                    log('add -> total items ${data.length}');
+
+                    if (data.isEmpty) {
+                      log('first add !');
+                      kioskController.addOrderItemQt(id: id, title: title, image: image, price: price, qt: 1);
+                    } else {
+                      // FIXME: check data exist
+                      bool found = false;
+                      for (var element in data) {
+                        if (element["id"] == id) {
+                          log('found!');
+                          element["qt"] = element["qt"] + 1;
+                          found = true;
+                          break;
+                        }
+                      }
+                      // if not found add a new onec
+                      if (!found) {
+                        log('not found!');
+                        kioskController.addOrderItemQt(id: id, title: title, image: image, price: price, qt: 1);
                       }
                     }
-                    // if not found add a new onec
-                    if (!found) {
-                      log('not found!');
-                      kioskController.addOrderItemQt(id: id, title: title, image: image, price: price, qt: 1);
-                    }
-                  }
-                  kioskController.update(['order']);
-                  Get.back();
-                },
-              )
-            ],
+                    kioskController.update(['order']);
+                    Get.back();
+                  },
+                )
+              ],
+            ),
           ),
         );
       },
