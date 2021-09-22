@@ -9,3 +9,12 @@ Plugins
 
  * Swagger API document
  * GraphQL
+
+Install dependency use `yarn`
+
+`yarn install`
+
+Run Strapi
+
+`yarn develop`
+

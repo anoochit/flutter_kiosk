@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:kiosk/models/menu_model.dart';
 
-const String urlEndpoint = "http://3b35-2001-fb1-14f-ccbd-f1af-65de-d6e5-d73.ngrok.io";
+const String urlEndpoint = "http://bdd1-2001-fb1-14f-ccbd-f1af-65de-d6e5-d73.ngrok.io";
 
 // logo
 const logoImage = "$urlEndpoint/uploads/Mc_Donalds_logo_1024x768_edf4dd259f.png";

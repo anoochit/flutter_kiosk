@@ -5,3 +5,16 @@ A sample kiosk app inspired by [Cuberto's design](https://www.behance.net/galler
  1. Strapi for backend and Restful API
  2. Kiosk app
 
+# Todos
+
+## Mobile Kiosk
+
+ * Change item quantity
+ * Edit quantity in menu page and order page
+ * QR Payment
+
+## Strapi
+
+ * Nginx reverse proxy and cache
+ * Docker compose / charm file
+
