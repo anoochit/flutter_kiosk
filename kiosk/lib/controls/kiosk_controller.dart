@@ -5,7 +5,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:kiosk/models/food_model.dart' as food;
 import 'package:kiosk/models/order_model.dart' as order;
 import 'package:kiosk/services/kiosk_service.dart';
-import 'package:flutter_cache/flutter_cache.dart' as cache;
 
 class KioskController extends GetxController {
   RxList<Map> orderData = [{}].obs;

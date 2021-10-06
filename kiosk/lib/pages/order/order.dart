@@ -4,14 +4,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_instance/src/extension_instance.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
+import 'package:get/get.dart';
 import 'package:kiosk/const.dart';
 import 'package:kiosk/controls/kiosk_controller.dart';
 import 'package:kiosk/pages/home/home.dart';
+import 'package:kiosk/themes/theme.dart';
 import 'package:kiosk/widgets/backbutton_widget.dart';
 import 'package:kiosk/widgets/ordertype_widget.dart';
 

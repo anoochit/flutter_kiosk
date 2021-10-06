@@ -1,19 +1,13 @@
 // Strapi endpoint
-import 'package:flutter/material.dart';
 import 'package:kiosk/models/menu_model.dart';
 
-const String urlEndpoint = "http://af33-2001-fb1-14f-ccbd-f1af-65de-d6e5-d73.ngrok.io";
+const String urlEndpoint = "http://053b-2001-fb1-14d-2156-e57a-bf5c-3379-1e1b.ngrok.io";
 
 // logo
 const logoImage = "$urlEndpoint/uploads/Mc_Donalds_logo_1024x768_edf4dd259f.png";
 
 // image menus
 const eatinIcon = "$urlEndpoint/uploads/h_mcdonalds_2_Cheeseburger_Extra_Value_Meals_809c97f072.jpg";
-
-// colors
-const kMacGreen = Color.fromARGB(255, 43, 123, 59);
-const kMacYellow = Color.fromARGB(255, 255, 202, 64);
-const kMacGrey = Color.fromARGB(255, 251, 251, 249);
 
 // category menu in menu page
 List<MenuItem> listMenuItem = [

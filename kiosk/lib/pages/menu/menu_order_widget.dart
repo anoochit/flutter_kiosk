@@ -6,9 +6,9 @@ import 'package:get/get_core/get_core.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:kiosk/const.dart';
 import 'package:kiosk/controls/kiosk_controller.dart';
 import 'package:kiosk/pages/order/order.dart';
+import 'package:kiosk/themes/theme.dart';
 import 'package:kiosk/widgets/ordertype_widget.dart';
 
 class MenuOrderList extends StatefulWidget {
@@ -34,12 +34,9 @@ class _MenuOrderListState extends State<MenuOrderList> {
             children: [
               const SizedBox(height: 128 + 8),
               // my order title
-              Text(
+              const Text(
                 "My Order",
-                style: TextStyle(
-                  fontSize: Theme.of(context).textTheme.headline5!.fontSize,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: kTextTitle5,
               ),
 
               Obx(() => OrderTypeWidget(title: '${kioskController.orderType}', style: Theme.of(context).textTheme.headline6)),
@@ -84,7 +81,7 @@ class _MenuOrderListState extends State<MenuOrderList> {
                 },
               ),
 
-              // TODO : Change code on total calculation
+              // total calculation
               GetBuilder<KioskController>(
                   id: 'order',
                   init: KioskController(),
@@ -104,18 +101,18 @@ class _MenuOrderListState extends State<MenuOrderList> {
                             thickness: 2.0,
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 4.0),
                           child: Text(
                             "Total",
-                            style: Theme.of(context).textTheme.headline6,
+                            style: kTextTitle6,
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 4.0),
                           child: Text(
                             '$total',
-                            style: Theme.of(context).textTheme.headline4,
+                            style: kTextTitle4,
                           ),
                         ),
 

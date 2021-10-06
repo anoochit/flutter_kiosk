@@ -11,6 +11,7 @@ import 'package:kiosk/const.dart';
 import 'package:kiosk/controls/kiosk_controller.dart';
 import 'package:kiosk/models/food_model.dart';
 import 'package:kiosk/pages/menu/menu_top_widget.dart';
+import 'package:kiosk/themes/theme.dart';
 import 'package:kiosk/widgets/menuitem_widget.dart';
 
 class MenuCategoryWidget extends StatefulWidget {
@@ -167,6 +168,7 @@ class _MenuCategoryWidgetState extends State<MenuCategoryWidget> {
 
   showProduct({required BuildContext context, required String title, required double price, required int id, required String image}) {
     KioskController kioskController = Get.find<KioskController>();
+    log(Theme.of(context).textTheme.headline4!.fontSize.toString());
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -218,7 +220,7 @@ class _MenuCategoryWidgetState extends State<MenuCategoryWidget> {
                   padding: const EdgeInsets.only(top: 16.0),
                   child: Text(
                     title,
-                    style: Theme.of(context).textTheme.headline5!.copyWith(fontWeight: FontWeight.bold),
+                    style: kProductTitle,
                   ),
                 ),
 
@@ -227,7 +229,7 @@ class _MenuCategoryWidgetState extends State<MenuCategoryWidget> {
                   padding: const EdgeInsets.only(top: 16.0),
                   child: Text(
                     '$price',
-                    style: Theme.of(context).textTheme.headline4!.copyWith(fontWeight: FontWeight.bold, color: kMacYellow),
+                    style: kPriceTitle,
                   ),
                 ),
 
@@ -246,9 +248,9 @@ class _MenuCategoryWidgetState extends State<MenuCategoryWidget> {
                       child: Container(
                         padding: const EdgeInsets.all(8.0),
                         decoration: BoxDecoration(color: kMacGrey, borderRadius: BorderRadius.circular(3.0)),
-                        child: Text(
+                        child: const Text(
                           "1",
-                          style: Theme.of(context).textTheme.headline5,
+                          style: kProductTitle,
                         ),
                       ),
                     ),
@@ -266,9 +268,9 @@ class _MenuCategoryWidgetState extends State<MenuCategoryWidget> {
                   child: Container(
                     padding: const EdgeInsets.all(16.0),
                     decoration: BoxDecoration(color: kMacYellow, borderRadius: BorderRadius.circular(16.0)),
-                    child: Text(
+                    child: const Text(
                       "Done",
-                      style: Theme.of(context).textTheme.headline5,
+                      style: kProductTitle,
                     ),
                   ),
                   onTap: () {
